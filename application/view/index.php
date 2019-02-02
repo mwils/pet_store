@@ -25,6 +25,13 @@ $ctr = new HomeController();
         </select>
         <label for="attribute_value">Filter Value: </label>
         <input list="all_values" name="attribute_value">
+        <label for="sort_key">Sort BY: </label>
+        <select name="sort_key">
+          <?php foreach ($ctr->getAttribute() as $row): ?>
+            <option value="">Name</option>
+            <option value="<?=$row['name'];?>"><?=$row['name'];?></option>
+          <?php endforeach ?>
+        </select>
         <label for="reverse">Reverse Order</label>
         <input type="checkbox" name="reverse" value="true">
 
@@ -49,12 +56,12 @@ $ctr = new HomeController();
             </h4>
             <section class="itemDetails">
               <p>
-                PRICE: $ <?=$itemAttributes['price'];?>
+                PRICE: <?=$itemAttributes['price'];?>
               <p>
-                age: $ <?=$itemAttributes['age'];?>
+                AGE: <?=$itemAttributes['age'];?>
               </p>
               <p>
-                life: $ <?=$itemAttributes['lifespan'];?>
+                Life: <?=$itemAttributes['lifespan'];?>
               </p>
               <p>
                 DISCOUNT: <?=$ctr->isDiscounted($itemAttributes['age'], $itemAttributes['lifespan'])?>

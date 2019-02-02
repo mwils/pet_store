@@ -38,20 +38,19 @@ class CatalogItem extends Model {
     }
 
 
-    $sql .= "GROUP BY catalog_item.id ";
-
-    if (!empty($filterArray)) {
-      $sql .= "ORDER BY catalog_item_attribute.value ";
-    } else {
-      $sql .= "ORDER BY title ";
-    }
-
-
+    $sql .= "GROUP BY catalog_item.id ORDER BY catalog_item.title ";
+    
     if ($reverse) {
-      $sql .= "DESC ";
+      $sql .= "DESC";
     }
 
     $res = $this->query($sql, $unEscapedParams);
+
+    // add the items attributes
+    foreach($res as $key => $value) {
+      $atr = $this->getItemAttributes($value['id']);
+      $res[$key]['attributes'] = $atr;
+    }
     return $res;
   }
 

@@ -29,7 +29,44 @@ class HomeController extends Controller {
     if ($_GET['attribute_name'] && $_GET['attribute_value']) {
       $filter = array('attribute'=>$_GET['attribute_name'], 'value'=>$_GET['attribute_value']);
     }
-    return $this->catalogModel->getCatalogItems($filter, $_GET['reverse']);
+    $items = $this->catalogModel->getCatalogItems($filter, $_GET['reverse']);
+
+    function cpm($a, $b) {
+      $sortKey = $_GET['sort_key'];
+      $aAtrs = $a['attributes'];
+      $bAtrs = $b['attributes'];
+      $aVal = INF; // If key not exist, bury the item
+      $bVal = INF;
+
+      // find the values of the sort attribute 
+      foreach($aAtrs as $key => $value) {
+        if ($value['name'] === $sortKey) {
+          $aVal = $value['value'];
+        }
+      }
+
+      foreach($bAtrs as $key => $value) {
+        if ($value['name'] === $sortKey) {
+          $bVal = $value['value'];
+        }
+      }
+
+      if (is_numeric($aVal) && is_numeric($bVal)) {
+        $output = $aVal > $bVal;
+      } else {
+        $output = strcmp($aVal, $bVal);
+      }
+
+      if ($_GET['reverse']) {
+        $output = !$output;
+      }
+
+      return $output;
+    }
+    if ($sortKey) {
+      $sorted = usort( $items , "cpm");
+    }
+    return $items;
   }
 
   public function getItemAttributes($id) {
