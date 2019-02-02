@@ -1,0 +1,41 @@
+p, li, label {
+  font-size: .8em;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  background-color: #f6b73c;
+  color: #222;
+  padding: 20px 80px;
+}
+
+main {
+  margin: 40px 80px;
+}
+
+.itemDetails {
+  text-align: left;
+}
+
+.itemDetails p {
+  margin: 5px, inherit;
+}
+
+.petList {
+  margin: 40px, 0;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+.petItem {
+  display: inline-grid;
+  min-height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  margin: 5px;
+  font-size: 30px;
+  text-align: center;
+}
