@@ -17,18 +17,18 @@ $ctr = new HomeController();
       <?=$ctr->warn()?>
       <form>
         <label for="attribute_name">Filter BY: </label>
-        <select name="attribute_name">
+        <select name="attribute_name" onchange="app.updateValueHints(this)">
+          <option value=""></option>
           <?php foreach ($ctr->getAttribute() as $row): ?>
-            <option value=""></option>
             <option value="<?=$row['name'];?>"><?=$row['name'];?></option>
           <?php endforeach ?>
         </select>
         <label for="attribute_value">Filter Value: </label>
-        <input list="all_values" name="attribute_value">
+        <input list="all_values" name="attribute_value" autocomplete="off">
         <label for="sort_key">Sort BY: </label>
         <select name="sort_key">
+          <option value="">Name</option>
           <?php foreach ($ctr->getAttribute() as $row): ?>
-            <option value="">Name</option>
             <option value="<?=$row['name'];?>"><?=$row['name'];?></option>
           <?php endforeach ?>
         </select>
@@ -40,7 +40,7 @@ $ctr = new HomeController();
         <datalist id="all_values">
           <?php foreach ($ctr->getAttribute() as $row): ?>
             <?php foreach ($ctr->getAttributeOptions($row['id']) as $opt): ?>
-              <option><?=$opt['value'];?></option>
+              <option class="att-option att-opt-<?=$row['name']?>"><?=$opt['value'];?></option>
             <?php endforeach ?>
           <?php endforeach ?>
         </datalist>

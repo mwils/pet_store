@@ -7,6 +7,9 @@ class Attributes extends Model {
     parent::__construct('attribute');
   }
 
+  /**
+   * Get a list of all attributes in database
+   */
   public function getAllAttributes() {
     $sql = "SELECT name, id from {$this->table} GROUP BY name";
 
@@ -14,6 +17,9 @@ class Attributes extends Model {
     return $res;
   }
 
+  /**
+   * Gets a list of values that have been used with a certain attribute
+   */
   public function getAttributeOptions($attributeId) {
     $sql = "SELECT value from catalog_item_attribute where attribute_name_id = :attId GROUP BY value";
 

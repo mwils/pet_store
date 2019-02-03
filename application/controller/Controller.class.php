@@ -14,6 +14,8 @@ class Controller {
   }
 
   static function getFooter() {
-    $footer =  "</html>";
+    $footer = "<script src='/application/js/main.js'></script>" ;
+    $footer .=  "</html>";
+    return $footer;
   }
 }
