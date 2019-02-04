@@ -43,40 +43,41 @@ class HomeController extends Controller {
     $items = $this->catalogModel->getCatalogItems($filter, $_GET['reverse']);
     
     // sort fn
-    function cpm($a, $b) {
-      $sortKey = $_GET['sort_key'];
-      $aAtrs = $a['attributes'];
-      $bAtrs = $b['attributes'];
-      $aVal = INF; // If key not exist, bury the item
-      $bVal = INF;
+    
 
-      // find the values of the sort attribute 
-      foreach($aAtrs as $key => $value) {
-        if ($value['name'] === $sortKey) {
-          $aVal = $value['value'];
+    if ($_GET['sort_key']) {
+      $sorted = usort( $items , function ($a, $b) {
+        $sortKey = $_GET['sort_key'];
+        $aAtrs = $a['attributes'];
+        $bAtrs = $b['attributes'];
+        $aVal = INF; // If key not exist, bury the item
+        $bVal = INF;
+  
+        // find the values of the sort attribute 
+        foreach($aAtrs as $key => $value) {
+          if ($value['name'] === $sortKey) {
+            $aVal = $value['value'];
+          }
         }
-      }
-
-      foreach($bAtrs as $key => $value) {
-        if ($value['name'] === $sortKey) {
-          $bVal = $value['value'];
+  
+        foreach($bAtrs as $key => $value) {
+          if ($value['name'] === $sortKey) {
+            $bVal = $value['value'];
+          }
         }
-      }
-
-      if (is_numeric($aVal) && is_numeric($bVal)) {
-        $output = $aVal > $bVal;
-      } else {
-        $output = strcmp($aVal, $bVal);
-      }
-
-      if ($_GET['reverse']) {
-        $output = !$output;
-      }
-
-      return $output;
-    }
-    if ($sortKey) {
-      $sorted = usort( $items , "cpm");
+  
+        if (is_numeric($aVal) && is_numeric($bVal)) {
+          $output = $aVal > $bVal;
+        } else {
+          $output = strcmp($aVal, $bVal);
+        }
+  
+        if ($_GET['reverse']) {
+          $output = !$output;
+        }
+  
+        return $output;
+      });
     }
     return $items;
   }
