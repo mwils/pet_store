@@ -27,15 +27,45 @@ main {
 .petList {
   margin: 40px, 0;
   display: grid;
+  /* 4 column on large screen */
   grid-template-columns: auto auto auto auto;
 }
 
 .petItem {
   display: inline-grid;
-  min-height: 50px;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
   margin: 5px;
   font-size: 30px;
   text-align: center;
+}
+
+
+/* media queries for small screen and mobile responsive */
+
+@media only screen and (max-width: 1300px) {
+  /* three column layout for less than 1300px */
+  .petList {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  /* two column layout for less than 1300px */
+  .petList {
+    grid-template-columns: auto auto;
+  }
+  .form-group {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  /* one column layout for less than 1300px */
+  .petList {
+    grid-template-columns: auto;
+  }
+  .form-group {
+    display: block;
+  }
 }

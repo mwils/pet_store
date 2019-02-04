@@ -14,7 +14,7 @@ class MysqlConnection {
       $this->pdo = new PDO("mysql:host={$config['MYSQL_host']};dbname={$config['MYSQL_DB_NAME']}", $config['MYSQL_USER_NAME'], $config['MYSQL_PASSWORD']);
       $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $ex) {
-      die('Could not connect to database');
+      die('Could not connect to database, please check conf.ini for correct values and that the database exists.');
     }
   }
 

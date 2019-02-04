@@ -8,20 +8,12 @@ class CatalogItem extends Model {
   }
 
   /**
-   * returns sortable fields for catalog items
-   */
-  public function getSortableFields() {
-    return $sortableFields = array('title', 'price');
-  }
-
-  /**
    * Gets items from the catalog
    * @param $filterArray {array} - associative array with attribute and value entries for filtering results
    * @param $reverse {boolean} - use descending order?
    * @return array results
    */
   public function getCatalogItems($filterArray = null, $reverse = false) {
-    $sortableFields = $this->getSortableFields();
     $unEscapedParams = array();
     
     $sql = "" .
@@ -73,6 +65,12 @@ class CatalogItem extends Model {
     return $res;
   }
 
+  /**
+   * determine if item should be discounted
+   * @param {int} age
+   * @param {int} lifespan
+   * @return {boolean}
+   */
   public function isDiscounted($age = 0, $lifespan = 0) {
 
     // if no age or lifespan set, no discount

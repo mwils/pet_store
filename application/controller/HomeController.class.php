@@ -11,16 +11,27 @@ class HomeController extends Controller {
     $this->attributesModel = new Attributes();
   }
 
+  // Form validation warning
   public function warn() {
     if ($_GET['attribute_name'] || $_GET['attribute_value'] && !$_GET['attribute_name'] && $_GET['attribute_value'] ) {
       return "<p>Please complete the form to view results.</p>";
     }
   }
 
+  // conditionally display and format attribute name and value
+  public function displayAttribute($title, $value) {
+    if (isset($value)) {
+      $component = "<p>{$title}: " . ucfirst($value) . "</p>";
+      return $component;
+    }
+  }
+
+  // dynamically get filter attribute list (get all attributes)
   public function getAttribute() {
     return $this->attributesModel->getAllAttributes();
   }
 
+  // Get a list of values that have been used for a specific attribute
   public function getAttributeOptions($id) {
     return $this->attributesModel->getAttributeOptions($id);
   }
@@ -30,7 +41,8 @@ class HomeController extends Controller {
       $filter = array('attribute'=>$_GET['attribute_name'], 'value'=>$_GET['attribute_value']);
     }
     $items = $this->catalogModel->getCatalogItems($filter, $_GET['reverse']);
-
+    
+    // sort fn
     function cpm($a, $b) {
       $sortKey = $_GET['sort_key'];
       $aAtrs = $a['attributes'];
@@ -77,10 +89,6 @@ class HomeController extends Controller {
     }
     
     return $map;
-  }
-
-  public function getOrderByOptions() {
-    return $this->catalogModel->getSortableFields();
   }
 
   public function isDiscounted($age, $lifespan) {

@@ -8,6 +8,9 @@ class Conf {
     $this->config = parse_ini_file('../../conf.ini', true);
   }
 
+  /**
+   * @return {associative array} configuration
+   */
   public function getConfig() {
     return $this->config;
   }
