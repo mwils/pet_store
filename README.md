@@ -4,4 +4,4 @@
 1. Install database using migrations/schema.sql `mysql < migrations/schema.sql -uusernamehere -p`
 1. Setup conf.ini for your local environment
 1. Application can be served with ` php -S localhost:8100`
-1. View at localhost:8100
+1. View at localhost:8100/index.php or http://localhost:8100/application/view/index.php
