@@ -52,6 +52,11 @@ class HomeController extends Controller {
         $bAtrs = $b['attributes'];
         $aVal = INF; // If key not exist, bury the item
         $bVal = INF;
+
+        if ($_GET['reverse']) {
+          $aVal = 0; // If key not exist, bury the item
+          $bVal = 0;
+        }
   
         // find the values of the sort attribute 
         foreach($aAtrs as $key => $value) {
